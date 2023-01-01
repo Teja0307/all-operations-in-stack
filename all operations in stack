@@ -1,0 +1,105 @@
+#include<iostream>
+using namespace std;
+struct node{
+    int data;
+    struct node *next;
+}*top=NULL;
+
+
+void push(int data){
+    struct node *newnode;
+    newnode=(struct node *)malloc(sizeof(struct node));
+    if(newnode==NULL)
+    {
+        cout<<"stack overflow";
+        exit(1);
+    }
+    newnode->data=data;
+    newnode->next=NULL;
+    
+    newnode->next=top;
+    top=newnode;
+}
+
+int pop(){
+    struct node *temp;
+    int val;
+    if(top==NULL)
+    {
+        cout<<"stack underflow";
+        exit(1);
+    }
+    temp=top;
+    val=top->data;
+    top=top->next;
+    free(temp);
+    return val;
+}
+
+int peek(){
+    if(top==NULL)
+    {
+        cout<<"stack underflow";
+        exit(1);
+    }
+    return top->data;
+}
+
+void print(){
+    struct node *temp=top;
+    if(top==NULL)
+    {
+        cout<<"stack underflow";
+        exit(1);
+    }
+    while(temp)
+    {
+        cout<<temp->data<<" ";
+        temp=temp->next;
+    }
+    cout<<"\n";
+}
+
+
+
+
+
+int main()
+{
+    int data,choice;
+    cout<<"\n";
+    while(1){
+    cout<<"1.push\n";
+    cout<<"2.pop\n";
+    cout<<"3.top element\n";
+    cout<<"4.print elements in the stack\n";
+    cout<<"5.Quit\n";
+    cout<<"Enter your choice:";
+    cin>>choice;
+    switch(choice){
+        case 1:
+           cout<<"Enter the element to be pushed:";
+           cin>>data;
+           push(data);
+           break;
+        case 2:
+           data=pop();
+           cout<<"element poped out:"<<data;
+           cout<<"\n";
+           break;
+        case 3:
+           cout<<"Top element"<<peek();
+           cout<<"\n";
+           break;
+        case 4:
+           cout<<"elements in the stack:";
+           print();
+           break;
+        case 5:
+           exit(1);
+        default:
+           cout<<"no choice\n";
+        }
+    }
+    
+}
